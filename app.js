@@ -59,6 +59,23 @@ app.use('/forest', (request, response, next) => {
   if (PUBLIC_ROUTES.includes(request.url)) {
     return next();
   }
+
+  if (request.user?.email === 'erlich.bachman@forestadmin.com') {
+    if (request.method !== 'GET'
+        && !request.originalUrl.startsWith('/forest/stats')
+        && !request.originalUrl.includes('/hooks/load')
+        && !request.originalUrl.includes('/hooks/change')
+    ) {
+      const errorMessage = 'You can only read data on this public demo application.';
+
+      if (request.originalUrl.startsWith('/forest/actions/')) {
+        return response.status(400).send({ error: errorMessage });
+      }
+
+      return response.status(403).send(errorMessage);
+    }
+  }
+
   return ensureAuthenticated(request, response, next);
 });
 
