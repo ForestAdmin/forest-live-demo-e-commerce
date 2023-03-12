@@ -1,4 +1,5 @@
 const { collection } = require('forest-express-sequelize');
+const { customerIssue } = require('../models');
 
 // This file allows you to add to your Forest UI:
 // - Smart actions: https://docs.forestadmin.com/documentation/reference-guide/actions/create-and-manage-smart-actions
@@ -8,6 +9,20 @@ const { collection } = require('forest-express-sequelize');
 collection('customerIssue', {
   actions: [{
     name: 'Issue solved'
+  }, {
+    name: 'Create support',
+    type: 'single',
+    fields: [{
+      field: 'type',
+      type: 'Enum',
+      enums: ['email', 'phone', 'chat'],
+      isRequired: true,
+    }, {
+      field: 'description',
+      type: 'String',
+      isRequired: true,
+      widget: 'text area',
+    }]
   }],
   fields: [],
   segments: [],

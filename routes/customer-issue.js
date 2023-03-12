@@ -1,6 +1,6 @@
 const express = require('express');
-const { PermissionMiddlewareCreator, RecordsGetter } = require('forest-express-sequelize');
-const { customerIssue } = require('../models');
+const { PermissionMiddlewareCreator, RecordsGetter, RecordCreator } = require('forest-express-sequelize');
+const { customerIssue, customerIssueSupport } = require('../models');
 
 const router = express.Router();
 const permissionMiddlewareCreator = new PermissionMiddlewareCreator('customerIssue');
@@ -22,6 +22,36 @@ router.post('/actions/issue-solved', permissionMiddlewareCreator.smartAction(), 
       }, { where: { id: customerIssueIds }})
     })
     .then(() => response.send({ success: 'Issue has been solved' }))
+    .catch((error) => {
+      console.log(error);
+      response.status(400).send({ error: 'An error as occured' });
+    })
+});
+
+/**
+ * Smart Action : 'Support issue created'
+ */
+router.post('/actions/create-support', permissionMiddlewareCreator.smartAction(), (request, response) => {
+  const recordsGetter = new RecordsGetter(customerIssue, request.user, request.query);
+
+  let attrs = request.body.data.attributes.values;
+  recordsGetter.getIdsFromRequest(request)
+    .then((customerIssueIds) => [customerIssueIds[0], attrs])
+    .then(([customerIssueId, attrs] ) => {
+      let currentDate = new Date();
+      let formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')} ${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
+
+      const recordCreator = new RecordCreator(customerIssueSupport, request.user, request.query);
+      return recordCreator.create({
+        'owner': request.user.email,
+        'type': attrs['type'],
+        'description': attrs['description'],
+        'customerIssue': customerIssueId,
+        'createdAt': formattedDate,
+        'updatedAt': formattedDate,
+      });      
+    })
+    .then(() => response.send({ success: 'Issue support has been created' }))
     .catch((error) => {
       console.log(error);
       response.status(400).send({ error: 'An error as occured' });

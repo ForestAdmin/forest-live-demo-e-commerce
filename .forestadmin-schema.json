@@ -157,6 +157,43 @@
     }],
     "segments": [],
     "actions": [{
+      "name": "Create support",
+      "type": "single",
+      "baseUrl": null,
+      "endpoint": "/forest/actions/create-support",
+      "httpMethod": "POST",
+      "redirect": null,
+      "download": false,
+      "fields": [{
+        "field": "type",
+        "type": "Enum",
+        "defaultValue": null,
+        "enums": [
+          "email",
+          "phone",
+          "chat"
+        ],
+        "isRequired": true,
+        "reference": null,
+        "description": null,
+        "position": 0,
+        "widget": null
+      }, {
+        "field": "description",
+        "type": "String",
+        "defaultValue": null,
+        "enums": null,
+        "isRequired": true,
+        "reference": null,
+        "description": null,
+        "position": 1,
+        "widget": "text area"
+      }],
+      "hooks": {
+        "load": false,
+        "change": []
+      }
+    }, {
       "name": "Issue solved",
       "type": "bulk",
       "baseUrl": null,
