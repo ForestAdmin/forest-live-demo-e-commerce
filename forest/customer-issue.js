@@ -1,5 +1,4 @@
 const { collection } = require('forest-express-sequelize');
-const { customerIssue } = require('../models');
 
 // This file allows you to add to your Forest UI:
 // - Smart actions: https://docs.forestadmin.com/documentation/reference-guide/actions/create-and-manage-smart-actions
