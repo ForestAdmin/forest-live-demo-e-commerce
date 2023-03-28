@@ -8,6 +8,20 @@ const { collection } = require('forest-express-sequelize');
 collection('customerIssue', {
   actions: [{
     name: 'Issue solved'
+  }, {
+    name: 'Create support',
+    type: 'single',
+    fields: [{
+      field: 'type',
+      type: 'Enum',
+      enums: ['email', 'phone', 'chat'],
+      isRequired: true,
+    }, {
+      field: 'description',
+      type: 'String',
+      isRequired: true,
+      widget: 'text area',
+    }]
   }],
   fields: [],
   segments: [],
