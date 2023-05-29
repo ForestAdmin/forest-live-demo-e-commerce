@@ -56,6 +56,22 @@
       "relationship": "HasMany",
       "validations": []
     }, {
+      "field": "customerIssueTransaction",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "transaction.id",
+      "inverseOf": "customerIssue",
+      "relationship": "HasOne",
+      "validations": []
+    }, {
       "field": "id",
       "type": "Number",
       "defaultValue": null,
@@ -83,7 +99,7 @@
       "isSortable": true,
       "isVirtual": false,
       "reference": "syliusOrder.id",
-      "inverseOf": null,
+      "inverseOf": "orderCustomerIssues",
       "relationship": "BelongsTo",
       "validations": []
     }, {
@@ -103,23 +119,26 @@
       "validations": []
     }, {
       "field": "state",
-      "type": "String",
+      "type": "Enum",
       "defaultValue": null,
-      "enums": null,
+      "enums": [
+        "open",
+        "closed",
+        "pending_return",
+        "pending_refund",
+        "refunded",
+        "declined"
+      ],
       "integration": null,
       "isFilterable": true,
       "isPrimaryKey": false,
       "isReadOnly": false,
-      "isRequired": true,
+      "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
       "reference": null,
       "inverseOf": null,
-      "validations": [{
-        "message": null,
-        "type": "is present",
-        "value": null
-      }]
+      "validations": []
     }, {
       "field": "type",
       "type": "String",
@@ -326,6 +345,226 @@
       "isVirtual": false,
       "reference": null,
       "inverseOf": null,
+      "validations": []
+    }],
+    "segments": [],
+    "actions": []
+  }, {
+    "name": "storageUnit",
+    "nameOld": "storageUnit",
+    "icon": null,
+    "integration": null,
+    "isReadOnly": false,
+    "isSearchable": true,
+    "isVirtual": false,
+    "onlyForRelationships": false,
+    "paginationType": "page",
+    "fields": [{
+      "field": "aisle",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "box",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "createdAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "deletedAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "id",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": true,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "isFlagged",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "product",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "syliusProduct.id",
+      "inverseOf": "productStorageUnits",
+      "relationship": "BelongsTo",
+      "validations": []
+    }, {
+      "field": "quantity",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "row",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "storageType",
+      "type": "Enum",
+      "defaultValue": null,
+      "enums": [
+        "free",
+        "bags",
+        "boxes",
+        "palets"
+      ],
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "updatedAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "warehouse",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "warehouse.id",
+      "inverseOf": "storageUnits",
+      "relationship": "BelongsTo",
       "validations": []
     }],
     "segments": [],
@@ -786,6 +1025,22 @@
         "value": null
       }]
     }, {
+      "field": "orderCustomerIssues",
+      "type": ["Number"],
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "customerIssue.id",
+      "inverseOf": "order",
+      "relationship": "HasMany",
+      "validations": []
+    }, {
       "field": "orderSyliusOrderItems",
       "type": ["Number"],
       "defaultValue": null,
@@ -834,6 +1089,22 @@
       "relationship": "HasMany",
       "validations": []
     }, {
+      "field": "orderTransaction",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "transaction.id",
+      "inverseOf": "order",
+      "relationship": "HasOne",
+      "validations": []
+    }, {
       "field": "owner",
       "type": "String",
       "defaultValue": null,
@@ -850,23 +1121,23 @@
       "validations": []
     }, {
       "field": "state",
-      "type": "String",
+      "type": "Enum",
       "defaultValue": null,
-      "enums": null,
+      "enums": [
+        "New",
+        "Fulfilled",
+        "Blocked"
+      ],
       "integration": null,
       "isFilterable": true,
       "isPrimaryKey": false,
       "isReadOnly": false,
-      "isRequired": true,
+      "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
       "reference": null,
       "inverseOf": null,
-      "validations": [{
-        "message": null,
-        "type": "is present",
-        "value": null
-      }]
+      "validations": []
     }, {
       "field": "total",
       "type": "Number",
@@ -1362,6 +1633,25 @@
     "onlyForRelationships": false,
     "paginationType": "page",
     "fields": [{
+      "field": "brand",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
       "field": "description",
       "type": "String",
       "defaultValue": null,
@@ -1445,6 +1735,22 @@
         "value": null
       }]
     }, {
+      "field": "productStorageUnits",
+      "type": ["Number"],
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "storageUnit.id",
+      "inverseOf": "product",
+      "relationship": "HasMany",
+      "validations": []
+    }, {
       "field": "productSyliusOrderItems",
       "type": ["Number"],
       "defaultValue": null,
@@ -1476,6 +1782,25 @@
       "inverseOf": "product",
       "relationship": "HasMany",
       "validations": []
+    }, {
+      "field": "status",
+      "type": "Enum",
+      "defaultValue": null,
+      "enums": ["available", "out-of-stock"],
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
     }, {
       "field": "syliusTaxonThroughSyliusProductTaxons",
       "type": ["Number"],
@@ -1857,7 +2182,7 @@
     "paginationType": "page",
     "fields": [{
       "field": "calculator",
-      "type": "Json",
+      "type": "String",
       "defaultValue": null,
       "enums": null,
       "integration": null,
@@ -2039,6 +2364,310 @@
     }],
     "segments": [],
     "actions": []
+  }, {
+    "name": "transaction",
+    "nameOld": "transaction",
+    "icon": null,
+    "integration": null,
+    "isReadOnly": false,
+    "isSearchable": true,
+    "isVirtual": false,
+    "onlyForRelationships": false,
+    "paginationType": "page",
+    "fields": [{
+      "field": "amount",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "createdAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "customerIssue",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "customerIssue.id",
+      "inverseOf": "customerIssueTransaction",
+      "relationship": "BelongsTo",
+      "validations": []
+    }, {
+      "field": "deletedAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "id",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": true,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "order",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "syliusOrder.id",
+      "inverseOf": "orderTransaction",
+      "relationship": "BelongsTo",
+      "validations": []
+    }, {
+      "field": "status",
+      "type": "Enum",
+      "defaultValue": null,
+      "enums": [
+        "completed",
+        "pending",
+        "errored"
+      ],
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "type",
+      "type": "Enum",
+      "defaultValue": null,
+      "enums": ["payment", "refund"],
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "updatedAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }],
+    "segments": [],
+    "actions": []
+  }, {
+    "name": "warehouse",
+    "nameOld": "warehouse",
+    "icon": null,
+    "integration": null,
+    "isReadOnly": false,
+    "isSearchable": true,
+    "isVirtual": false,
+    "onlyForRelationships": false,
+    "paginationType": "page",
+    "fields": [{
+      "field": "createdAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "deletedAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "id",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": true,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "location",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "name",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "storageUnits",
+      "type": ["Number"],
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "storageUnit.id",
+      "inverseOf": "warehouse",
+      "relationship": "HasMany",
+      "validations": []
+    }, {
+      "field": "surface",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": [{
+        "message": null,
+        "type": "is present",
+        "value": null
+      }]
+    }, {
+      "field": "updatedAt",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }],
+    "segments": [],
+    "actions": []
   }],
   "meta": {
     "liana": "forest-express-sequelize",
@@ -2046,7 +2675,7 @@
     "stack": {
       "database_type": "mysql",
       "engine": "nodejs",
-      "engine_version": "18.13.0",
+      "engine_version": "18.14.0",
       "orm_version": "5.15.2"
     }
   }
