@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     calculator: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING,
       allowNull: false,
     },
   }, {

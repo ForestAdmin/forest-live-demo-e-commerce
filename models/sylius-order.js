@@ -14,12 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     state: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.ENUM('New','Fulfilled','Blocked'),
     },
     owner: {
       type: DataTypes.STRING,
-      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -43,6 +41,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       as: 'customer',
     });
+    SyliusOrder.hasMany(models.customerIssue, {
+      foreignKey: {
+        name: 'orderIdKey',
+        field: 'order_id',
+      },
+      as: 'orderCustomerIssues',
+    });
     SyliusOrder.hasMany(models.syliusOrderItem, {
       foreignKey: {
         name: 'orderIdKey',
@@ -63,6 +68,13 @@ module.exports = (sequelize, DataTypes) => {
         field: 'order_id',
       },
       as: 'orderSyliusShippings',
+    });
+    SyliusOrder.hasOne(models.transaction, {
+      foreignKey: {
+        name: 'orderIdKey',
+        field: 'order_id',
+      },
+      as: 'orderTransaction',
     });
   };
 

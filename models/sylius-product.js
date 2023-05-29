@@ -19,6 +19,14 @@ module.exports = (sequelize, DataTypes) => {
     imagePath: {
       type: DataTypes.STRING,
     },
+    status: {
+      type: DataTypes.ENUM('available','out-of-stock'),
+      allowNull: false,
+    },
+    brand: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {
     tableName: 'sylius_product',
     underscored: true,
@@ -32,6 +40,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'product_id',
       otherKey: 'taxon_id',
       as: 'syliusTaxonThroughSyliusProductTaxons',
+    });
+    SyliusProduct.hasMany(models.storageUnit, {
+      foreignKey: {
+        name: 'productIdKey',
+        field: 'product_id',
+      },
+      as: 'productStorageUnits',
     });
     SyliusProduct.hasMany(models.syliusOrderItem, {
       foreignKey: {

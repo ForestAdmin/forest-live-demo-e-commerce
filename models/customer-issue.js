@@ -9,8 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     state: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.ENUM('open','closed','pending_return','pending_refund','refunded','declined'),
     },
     type: {
       type: DataTypes.STRING,
@@ -45,6 +44,13 @@ module.exports = (sequelize, DataTypes) => {
         field: 'customer_issue_id',
       },
       as: 'customerIssueCustomerIssueSupports',
+    });
+    CustomerIssue.hasOne(models.transaction, {
+      foreignKey: {
+        name: 'customerIssueIdKey',
+        field: 'customer_issue_id',
+      },
+      as: 'customerIssueTransaction',
     });
   };
 

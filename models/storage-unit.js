@@ -4,35 +4,55 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: https://docs.forestadmin.com/documentation/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model
-  const SyliusOrderItem = sequelize.define('syliusOrderItem', {
+  const StorageUnit = sequelize.define('storageUnit', {
+    aisle: {
+      type: DataTypes.STRING,
+    },
+    row: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    box: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    unitPrice: {
-      type: DataTypes.DOUBLE,
+    storageType: {
+      type: DataTypes.ENUM('free','bags','boxes','palets'),
       allowNull: false,
     },
-    total: {
-      type: DataTypes.DOUBLE,
+    isFlagged: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
     },
   }, {
-    tableName: 'sylius_order_item',
+    tableName: 'storage_unit',
     underscored: true,
-    timestamps: false,
   });
 
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/reference-guide/relationships#adding-relationships.
-  SyliusOrderItem.associate = (models) => {
-    SyliusOrderItem.belongsTo(models.syliusOrder, {
+  StorageUnit.associate = (models) => {
+    StorageUnit.belongsTo(models.warehouse, {
       foreignKey: {
-        name: 'orderIdKey',
-        field: 'order_id',
+        name: 'warehouseIdKey',
+        field: 'warehouse_id',
       },
-      as: 'order',
+      as: 'warehouse',
     });
-    SyliusOrderItem.belongsTo(models.syliusProduct, {
+    StorageUnit.belongsTo(models.syliusProduct, {
       foreignKey: {
         name: 'productIdKey',
         field: 'product_id',
@@ -41,5 +61,5 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  return SyliusOrderItem;
+  return StorageUnit;
 };

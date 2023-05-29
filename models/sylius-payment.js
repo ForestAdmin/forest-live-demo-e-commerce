@@ -28,19 +28,19 @@ module.exports = (sequelize, DataTypes) => {
 
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/reference-guide/relationships#adding-relationships.
   SyliusPayment.associate = (models) => {
-    SyliusPayment.belongsTo(models.syliusPaymentMethod, {
-      foreignKey: {
-        name: 'methodIdKey',
-        field: 'method_id',
-      },
-      as: 'method',
-    });
     SyliusPayment.belongsTo(models.syliusOrder, {
       foreignKey: {
         name: 'orderIdKey',
         field: 'order_id',
       },
       as: 'order',
+    });
+    SyliusPayment.belongsTo(models.syliusPaymentMethod, {
+      foreignKey: {
+        name: 'methodIdKey',
+        field: 'method_id',
+      },
+      as: 'method',
     });
   };
 

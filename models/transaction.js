@@ -4,42 +4,51 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: https://docs.forestadmin.com/documentation/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model
-  const SyliusOrderItem = sequelize.define('syliusOrderItem', {
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    unitPrice: {
+  const Transaction = sequelize.define('transaction', {
+    amount: {
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
-    total: {
-      type: DataTypes.DOUBLE,
+    type: {
+      type: DataTypes.ENUM('payment','refund'),
       allowNull: false,
+    },
+    status: {
+      type: DataTypes.ENUM('completed','pending','errored'),
+      allowNull: false,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
     },
   }, {
-    tableName: 'sylius_order_item',
+    tableName: 'transaction',
     underscored: true,
-    timestamps: false,
   });
 
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/reference-guide/relationships#adding-relationships.
-  SyliusOrderItem.associate = (models) => {
-    SyliusOrderItem.belongsTo(models.syliusOrder, {
+  Transaction.associate = (models) => {
+    Transaction.belongsTo(models.customerIssue, {
+      foreignKey: {
+        name: 'customerIssueIdKey',
+        field: 'customer_issue_id',
+      },
+      as: 'customerIssue',
+    });
+    Transaction.belongsTo(models.syliusOrder, {
       foreignKey: {
         name: 'orderIdKey',
         field: 'order_id',
       },
       as: 'order',
     });
-    SyliusOrderItem.belongsTo(models.syliusProduct, {
-      foreignKey: {
-        name: 'productIdKey',
-        field: 'product_id',
-      },
-      as: 'product',
-    });
   };
 
-  return SyliusOrderItem;
+  return Transaction;
 };

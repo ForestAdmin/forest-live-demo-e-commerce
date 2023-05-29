@@ -4,37 +4,42 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: https://docs.forestadmin.com/documentation/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model
-  const SyliusShipping = sequelize.define('syliusShipping', {
-    state: {
+  const Warehouse = sequelize.define('warehouse', {
+    name: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
-    amount: {
+    location: {
+      type: DataTypes.STRING,
+    },
+    surface: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+    },
   }, {
-    tableName: 'sylius_shipping',
-    timestamps: false,
+    tableName: 'warehouse',
+    underscored: true,
   });
 
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/reference-guide/relationships#adding-relationships.
-  SyliusShipping.associate = (models) => {
-    SyliusShipping.belongsTo(models.syliusOrder, {
+  Warehouse.associate = (models) => {
+    Warehouse.hasMany(models.storageUnit, {
       foreignKey: {
-        name: 'orderIdKey',
-        field: 'order_id',
+        name: 'warehouseIdKey',
+        field: 'warehouse_id',
       },
-      as: 'order',
-    });
-    SyliusShipping.belongsTo(models.syliusShippingMethod, {
-      foreignKey: {
-        name: 'methodIdKey',
-        field: 'method_id',
-      },
-      as: 'method',
+      as: 'storageUnits',
     });
   };
 
-  return SyliusShipping;
+  return Warehouse;
 };
