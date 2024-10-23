@@ -2671,7 +2671,7 @@
   }],
   "meta": {
     "liana": "forest-express-sequelize",
-    "liana_version": "9.4.1",
+    "liana_version": "9.2.8",
     "stack": {
       "database_type": "postgres",
       "engine": "nodejs",
