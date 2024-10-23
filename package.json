@@ -16,8 +16,8 @@
     "express-jwt": "6.1.2",
     "forest-express-sequelize": "^9.2.8",
     "morgan": "1.9.1",
-    "mysql2": "~2.2.5",
     "nodemon": "^2.0.20",
+    "pg": "^8.13.0",
     "require-all": "^3.0.0",
     "sequelize": "~5.15.1"
   }

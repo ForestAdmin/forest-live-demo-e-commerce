@@ -2671,11 +2671,11 @@
   }],
   "meta": {
     "liana": "forest-express-sequelize",
-    "liana_version": "9.2.8",
+    "liana_version": "9.4.1",
     "stack": {
-      "database_type": "mysql",
+      "database_type": "postgres",
       "engine": "nodejs",
-      "engine_version": "18.14.0",
+      "engine_version": "18.20.1",
       "orm_version": "5.15.2"
     }
   }
