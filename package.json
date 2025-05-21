@@ -3,7 +3,9 @@
   "version": "0.1",
   "private": true,
   "scripts": {
-    "start": "node ./server.js"
+    "start": "node ./server.js",
+    "compile": "tsc ./seed/populate-db.ts --outDir ./seed/dist",
+    "seed": "node ./seed/dist/populate-db.js"
   },
   "dependencies": {
     "body-parser": "1.19.0",
@@ -20,5 +22,9 @@
     "nodemon": "^2.0.20",
     "require-all": "^3.0.0",
     "sequelize": "~5.15.1"
+  },
+  "devDependencies": {
+    "typescript": "4.9.5",
+    "@faker-js/faker": "^7.6.0"
   }
 }
